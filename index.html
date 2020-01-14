@@ -882,6 +882,7 @@ function onReadFile(e) {
 
 // Default font
 var fontFileName = "fonts/Inconsolata-Regular.ttf";
+document.getElementById('font-name').innerHTML = "Inconsolata-Regular.ttf";
 var outputFont; 
 
 // Initialize things
@@ -890,8 +891,6 @@ updateBGColor(document.getElementById('backgroundColor'));
 
 textToRender = initialText;
 document.getElementById('textToRender').value = textToRender;
-
-document.getElementById('font-name').innerHTML = fontFileName.split('/')[1];
 
 var fileButton = document.getElementById('file');
 fileButton.addEventListener('change', onReadFile, false);
