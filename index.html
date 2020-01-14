@@ -32,7 +32,7 @@
         <label style="clear:none; margin: 13px 0px 0px 55px"><span class="lbltxt" style="width: 80px">Uppercase</span><input type="checkbox" id="Uppercase" oninput="upperCaseChanged(this)"/></label>
         
         <div class="boxcontainer" style="clear: both;">
-            <span class="info" id="font-name">Fira Sans</span>
+            <span class="info" id="font-name">Inconsolata</span>
             <input id="file" name="file" type="file">
             <label for="file" class="filelabel">Import Font</label>
         </div>
@@ -891,7 +891,7 @@ updateBGColor(document.getElementById('backgroundColor'));
 textToRender = initialText;
 document.getElementById('textToRender').value = textToRender;
 
-document.getElementById('font-name').innerHTML = fontFileName.split('/')[2];
+document.getElementById('font-name').innerHTML = fontFileName.split('/')[1];
 
 var fileButton = document.getElementById('file');
 fileButton.addEventListener('change', onReadFile, false);
