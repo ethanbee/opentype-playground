@@ -852,6 +852,7 @@ function onFontLoaded(font) {
     } catch {}
     originalAttribution = fullname + " by " + designer + "; " + designerURL;
 
+    document.getElementById('font-name').innerHTML = font.names.fullName.en;
     createNewFont("MyNewFont", true);
     renderText();
 }
@@ -882,7 +883,7 @@ function onReadFile(e) {
 
 // Default font
 var fontFileName = "fonts/Inconsolata-Regular.ttf";
-document.getElementById('font-name').innerHTML = "Inconsolata-Regular.ttf";
+//document.getElementById('font-name').innerHTML = "Inconsolata-Regular.ttf";
 var outputFont; 
 
 // Initialize things
