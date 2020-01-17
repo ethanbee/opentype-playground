@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TypeRemix</title>
+    <title>Opentype Playground</title>
     <meta charset="utf-8">
     <script type="text/javascript" src="externs/opentype.min.js"></script>
     <script type="text/javascript" src="externs/FileSaver.min.js"></script>
@@ -27,10 +27,11 @@
         <label style="clear: none; margin-left: 15px;"><span class="lbltxt inlineLbl">h</span><input type="text" class="text-input" value="700" id="canvasHeight" style="width: 50px" onblur="canvasSizeUpdate()"></label>
     </fieldset>
     <fieldset>
-        <label><span class="lbltxt">Text</span> <input type="text" class="text-input" value="" id="textToRender" style="width: 100%" onblur="textToRenderChanged()"></label>
-        <button onClick="alphabetSample()" style="float: left; clear: both">Alphabet</button>
-        <label style="clear:none; margin: 13px 0px 0px 55px"><span class="lbltxt" style="width: 80px">Uppercase</span><input type="checkbox" id="Uppercase" oninput="upperCaseChanged(this)"/></label>
-        
+        <label style="float:left; position: relative;"><span class="lbltxt">Text</span> <input type="text" class="text-input" value="" id="textToRender" style="width: 75%; float: left" onblur="textToRenderChanged()">
+            <button onClick="alphabetSample()" style="float: left; margin-top: 0; margin-left: 8px;">A-Z</button>
+        </label>
+        <!-- <label style="clear:none; margin: 13px 0px 0px 55px"><span class="lbltxt" style="width: 80px">Uppercase</span><input type="checkbox" id="Uppercase" oninput="upperCaseChanged(this)"/></label>
+         -->
         <div class="boxcontainer" style="clear: both;">
             <span class="info" id="font-name">Inconsolata</span>
             <input id="file" name="file" type="file">
@@ -47,6 +48,7 @@
                 <option value="PresetDefault">Default</option>
                 <option value="PresetSlanty">Slanty</option>
                 <option value="PresetStrokeless">Strokeless</option>
+                <option value="PresetGrid">Griddy</option>
                 <option value="PresetDonk">Donk</option>
             </select>
         </label>
@@ -64,7 +66,7 @@
         <label><span class="lbltxt">Grid Space Y</span><input type="range" min="1" max="150" value="53" id="gridSpacingY-range" oninput="gridSpacingYChanged(this)"/><span id="gridSpacingY">53</span></label>
         <label><span class="lbltxt">Shift X</span><input type="range" min="-100" max="100" value="0" id="gridShiftX-range" oninput="gridShiftXChanged(this)"/><span id="gridShiftX">0</span></label>
         <label><span class="lbltxt">Shift Y</span><input type="range" min="-100" max="100" value="0" id="gridShiftY-range" oninput="gridShiftYChanged(this)"/><span id="gridShiftY">0</span></label>
-        <label style="clear:none; margin: 13px 0px 0px 0px"><span class="lbltxt" style="width: 80px">Show Grid</span><input type="checkbox" id="showGrid" oninput="showGridChanged(this)"/></label>
+        <label style="clear:none; margin: 13px 0px 0px 0px"><span class="lbltxt" style="width: 90px">Show Grid</span><input type="checkbox" id="showGrid" oninput="showGridChanged(this)"/></label>
         <!--<label><span class="lbltxt">ResamplePath</span><input type="range" min="0" max="300" step="0.5" value="0" oninput="resamplePathChanged(this)"/><span id="resampleAmt">0</span></label>-->
     </fieldset>
     <fieldset>
@@ -76,14 +78,29 @@
     <fieldset style="padding-top: 0px;"><button onClick="renderSVG()" style="width: 45%">Render SVG</button>
         <button onClick="saveFont()" style="width: 45%">Save Font File</button>
     </fieldset>
+    <div style="margin-bottom: 20px"><a href="javascript:toggleAttribution();">About Opentype Playground</a></div>
     <div id="message" name="error" style="display: none;"></div>
 </div>
 
+<div id="attContainer">
+    <div id="attribution"><h2>Opentype Playground<a href="javascript:toggleAttribution();" style="float: right">[x]</a><br />
+        by Ethan Miller, Based on <a href="http://github.com/opentypejs">opentype.js</a></h2>
+
+        <p>Please take care and watch your fingers while mangling typefaces. When you're done, you can render an SVG of your composition or export a new OTF font file. Note that the stroke isn't (yet) baked into output fonts, so you'll have to add it back in your graphics package.</p>
+
+        <p>Commercial fonts usually have licenses that don't allow you to remix them, so please don't! A great source of fonts that have remix-friendly licenses is <a href="http://fonts.google.com">fonts.google.com</a>. </p>
+
+        <p>
+            <a class="big" href="http://instagram.com/ethanbee">instagram.com/ethanbee</a><br />
+            <a class="big" href="http://twitter.com/ethanbee">twitter.com/ethanbee</a>
+        </p>
+    </div>
+</div>
 
 <script type="text/javascript">
 
 alphaSampleText = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"; 
-initialText = alphaSampleText;
+initialText = "OPENTYPE•PLAYGROUND•";
 
 // 1950, 675
 var pageSize = [1650, 700];
@@ -133,24 +150,24 @@ var hintingCheckbox = document.getElementById("hinting-checkbox");
 var hintingLabel = document.getElementById("hinting-label");
 
 var PresetDefault = {
-    fontSize: 200,
-    letterspace: 0,
+    fontSize: 139,
+    lineHeight: 30,
+    letterspace: -16,
+    stretchX: 2.54,
+    stretchY: 1.63,
+    stroke: 2,
+    skew: -0.08,
     snapStrength: 100,
-    gridSpacingX: 17,
-    gridSpacingY: 30,
-    gridShiftX: -27,
-    gridShiftY: -48,
-    stretchX: 1,
-    stretchY: 1,
-    stroke: 1,
-    skew: 0,
+    gridSpacingX: 55,
+    gridSpacingY: 38,
+    gridShiftX: -100,
+    gridShiftY: 37,
     uppercase: false,
     resampleAmt: 0,
     animSpeed: 1,
-    lineHeight: -48,
-    offsetY: 70,
-    offsetX: 0,
-    xMargin: 104,
+    offsetY: 83,
+    offsetX: -65,
+    xMargin: 248,
     yMargin: 80
 }
 
@@ -177,29 +194,55 @@ var PresetSlanty = {
 }
 
 var PresetStrokeless = {
-    fontSize: 200,
-    lineHeight: -75,
-    letterspace: 17,
-    stretchX: 1.35,
-    stretchY: 0.75,
+    fontSize: 44,
+    lineHeight: 67,
+    letterspace: 0,
+    stretchX: 7.8,
+    stretchY: 4.08,
     stroke: 0,
-    skew: 0,
+    skew: -0.05,
 
     snapStrength: 100,
-    gridSpacingX: 23,
-    gridSpacingY: 30,
-    gridShiftX: -12,
-    gridShiftY: 44,
+    gridSpacingX: 124,
+    gridSpacingY: 60,
+    gridShiftX: 10,
+    gridShiftY: -26,
 
-    offsetY: 85,
-    offsetX: -53,
-    xMargin: 115,
-    yMargin: 116,
+    offsetY: 65,
+    offsetX: -5,
+    xMargin: 300,
+    yMargin: 117,
 
     uppercase: false,
     resampleAmt: 0,
     animSpeed: 1
 }
+
+var PresetGrid = {
+    fontSize: 54,
+    lineHeight: 100,
+    letterspace: 94,
+    stretchX: 2.53,
+    stretchY: 1.63,
+    stroke: 2,
+    skew: 0.13,
+
+    snapStrength: 100,
+    gridSpacingX: 69,
+    gridSpacingY: 69,
+    gridShiftX: -31,
+    gridShiftY: 83,
+
+    offsetY: 79,
+    offsetX: -65,
+    xMargin: 248,
+    yMargin: 68,
+
+    uppercase: false,
+    resampleAmt: 0,
+    animSpeed: 1
+}
+
 var PresetDonk = {
     fontSize: 116,
     lineHeight: -12,
@@ -229,6 +272,7 @@ function presetSelectionChanged(e){
     if (e.value == "PresetDefault") loadPreset(PresetDefault);
     if (e.value == "PresetSlanty") loadPreset(PresetSlanty);
     if (e.value == "PresetStrokeless") loadPreset(PresetStrokeless);
+    if (e.value == "PresetGrid") loadPreset(PresetGrid);
     if (e.value == "PresetDonk") loadPreset(PresetDonk);
 }
 
@@ -307,6 +351,20 @@ function updateUiVals(){
     document.getElementById('yMargin-range').value = yMargin;
     // document.getElementById('resampleAmt').innerHTML = '' + resampleAmt;
     // document.getElementById('animSpeed').innerHTML = '' + animSpeed;
+}
+
+var attOpen = false;
+
+function toggleAttribution(){
+    if (attOpen){
+        document.getElementById('attribution').style.display = "none";
+        document.getElementById('attContainer').style.display = "none";
+        attOpen = false;
+    } else {
+        document.getElementById('attribution').style.display = "block";
+        document.getElementById('attContainer').style.display = "block"; 
+        attOpen = true; 
+    }
 }
 
 function fontSizeChanged() {
@@ -664,7 +722,7 @@ function createNewFont(fontName, subset) {
     newFont.names.uniqueID = {en: fontName};
     newFont.names.fullName = {en: fontName};
     newFont.names.designer = {en: "based on " + originalAttribution};
-    newFont.names.description = {en: "generated by TypeRemix; based on " + originalAttribution};
+    newFont.names.description = {en: "generated by Opentype Playground; based on " + originalAttribution};
     newFont.names.license = {en: "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"};
 
 
