@@ -23,7 +23,7 @@
     </script>
     <!-- end GA --------------->
 </head>
-<body>
+<body onresize="centerCanvas()">
 
 <canvas id="snap" width="1050" height="700" class="text"></canvas>
 
@@ -532,7 +532,26 @@ function canvasSizeUpdate() {
     document.getElementById('snap').width = pageSize[0];
     document.getElementById('snap').height = pageSize[1];
     enableHighDPICanvas('snap');
+    centerCanvas();
     renderText(newFont);
+}
+
+function centerCanvas() {
+    const toolsWidth = 315;
+    var scaledWindowSize = [window.innerWidth, window.innerHeight];
+    var newPos = [((scaledWindowSize[0] - toolsWidth - pageSize[0]) / 2), ((scaledWindowSize[1] - pageSize[1]) / 2)];
+    // Horizontal
+    if (pageSize[0] > scaledWindowSize[0] - toolsWidth){
+        document.getElementById("snap").style.left = 0;
+    } else {
+        document.getElementById("snap").style.left = newPos[0] + "px";
+    }
+    // Vertical
+    if (pageSize[1] > scaledWindowSize[1]){
+        document.getElementById("snap").style.top = 0;
+    } else {
+        document.getElementById("snap").style.top = newPos[1] + "px";
+    }
 }
 
 function anim1(){
@@ -972,6 +991,8 @@ fontSizeSlider.addEventListener('change', fontSizeChanged, false);
 
 //enableHighDPICanvas('preview');
 enableHighDPICanvas('snap');
+// document.getElementById('canvasWidth').value = window.innerWidth - 315;
+// document.getElementById('canvasHeight').value = window.innerHeight;
 canvasSizeUpdate();
 
 var snapCtx = document.getElementById('snap').getContext('2d');
