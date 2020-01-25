@@ -28,33 +28,12 @@
 <canvas id="snap" width="1050" height="700" class="text"></canvas>
 
 <div id="controls">
-    <!-- <fieldset>
-        <button onClick="anim1start()" style="width: 45%">Anim 1</button>
-        <button onClick="anim2start()" style="width: 45%">Anim 2</button>
-        <label><span class="lbltxt">Speed multiplier</span><input type="range" min="0" max="3" step="0.01" value="1" oninput="animSpeedChanged(this)"><span id="animSpeed">1</span></label>
-    </fieldset> -->
-    <fieldset stlye="margin-top: 0px;">
+    <h4 style="border-top-width: 0;"><a href="javascript:menuSectionToggle('document');">Document<span>+</span></a></h4> 
+    <fieldset id="document" stlye="margin-top: 0px;">
         <label style="clear: none"><span class="lbltxt inlineLbl">w</span><input type="text" class="text-input" value="1200" id="canvasWidth" style="width: 50px" onblur="canvasSizeUpdate()"></label>
-        <label style="clear: none; margin-left: 15px;"><span class="lbltxt inlineLbl">h</span><input type="text" class="text-input" value="700" id="canvasHeight" style="width: 50px" onblur="canvasSizeUpdate()"></label>
-    </fieldset>
-    <fieldset>
-        <label style="float:left; position: relative;"><span class="lbltxt">Text</span> <input type="text" class="text-input" value="" id="textToRender" style="width: 75%; float: left" onblur="textToRenderChanged()">
-            <button onClick="alphabetSample()" style="float: left; margin-top: 0; margin-left: 8px;">A-Z</button>
-        </label>
-        <!-- <label style="clear:none; margin: 13px 0px 0px 55px"><span class="lbltxt" style="width: 80px">Uppercase</span><input type="checkbox" id="Uppercase" oninput="upperCaseChanged(this)"/></label>
-         -->
-        <div class="boxcontainer" style="clear: both;">
-            <span class="info" id="font-name">Inconsolata</span>
-            <input id="file" name="file" type="file">
-            <label for="file" class="filelabel">Import Font</label>
-        </div>
-    </fieldset>
-    <fieldset>
-        <label><span class="lbltxt">Fg color</span> <!--<input type="text" class="text-input" value="#000000" id="foregroundColor" style="width: 100px" onblur="updateFGColor(this)">--></label><input type="color" id="fgc" onchange="updateFGColor()" value="#000000" /><br />
-        <label><span class="lbltxt">Bg color</span> <!--<input type="text" class="text-input" value="#cccccc" id="backgroundColor" style="width: 100px" onblur="updateBGColor(this)">--></label><input type="color" id="bgc1" onchange="updateBGColor()" value="#FF9E0D" /><input type="color" id="bgc2" onchange="updateBGColor()" value="#3324F5" />
-    </fieldset>
-    <fieldset>
-        <label><span class="lbltxt">Presets</span>
+        <label style="clear: none; margin-left: 15px; margin-bottom: 10px"><span class="lbltxt inlineLbl">h</span><input type="text" class="text-input" value="700" id="canvasHeight" style="width: 50px" onblur="canvasSizeUpdate()"></label>
+
+        <label style="margin-bottom: 5px;"><span class="lbltxt">Presets</span>
             <select name="presets" class="dropdown" onchange="presetSelectionChanged(this)">
                 <option value="PresetDefault">Default</option>
                 <option value="PresetSlanty">Slanty</option>
@@ -63,6 +42,26 @@
                 <option value="PresetDonk">Donk</option>
             </select>
         </label>
+        
+        <div style="clear: both;">
+            <label><span class="lbltxt">Fg color</span> <!--<input type="text" class="text-input" value="#000000" id="foregroundColor" style="width: 100px" onblur="updateFGColor(this)">--></label><input type="color" id="fgc" onchange="updateFGColor()" value="#000000" /><br />
+            <label><span class="lbltxt">Bg color</span> <!--<input type="text" class="text-input" value="#cccccc" id="backgroundColor" style="width: 100px" onblur="updateBGColor(this)">--></label><input type="color" id="bgc1" onchange="updateBGColor()" value="#FF9E0D" /><input type="color" id="bgc2" onchange="updateBGColor()" value="#3324F5" />
+        </div>
+    </fieldset>
+    <h4><a href="javascript:menuSectionToggle('typemetrics');">Type<span>+</span></a></h4> 
+    <fieldset id="typemetrics">
+
+        <label style="width: 100%;"><!--<span class="lbltxt">Text</span>--> 
+            <input type="text" class="text-input" value="" id="textToRender" style="width: 75%; float: left; clear: none;" onblur="textToRenderChanged()">
+            <button onClick="alphabetSample()" style="float: left; margin-top: 0; margin-left: 8px;">A-Z</button>
+        </label>
+        <!-- <label style="clear:none; margin: 13px 0px 0px 55px"><span class="lbltxt" style="width: 80px">Uppercase</span><input type="checkbox" id="Uppercase" oninput="upperCaseChanged(this)"/></label>
+            -->
+        <div class="boxcontainer" style="clear: both; margin-bottom: 10px;">
+            <span class="info" id="font-name">Inconsolata</span>
+            <input id="file" name="file" type="file">
+            <label for="file" class="filelabel">Import Font</label>
+        </div>
         <label><span class="lbltxt">Font Size</span><input type="range" min="6" max="500" step="1" value="200" id="font-size-range" autocomplete="off"><span id="fontSize">200</span></label>
         <label><span class="lbltxt">Line Height</span><input type="range" min="-75" max="100" step="1" value="10" id="lineHeight-range" autocomplete="off" oninput="lineHeightChanged(this)"><span id="lineHeight">150</span></label>
         <label><span class="lbltxt">Letterspace</span><input type="range" min="-75" max="400" value="0" id="letterspace-range" oninput="letterspaceChange(this)"/><span id="letterspace">0</span></label>
@@ -71,7 +70,8 @@
         <label><span class="lbltxt">Stroke</span><input type="range" min="0" max="50" value="0" id="stroke-range" oninput="strokeChange(this)"/><span id="stroke">0</span></label>
         <label><span class="lbltxt">Skew</span><input type="range" step="0.01" min="-3" max="3" id="skew-range" value="0" oninput="skewChange(this)"/><span id="skew">0</span></label>
     </fieldset>
-    <fieldset>
+    <h4><a href="javascript:menuSectionToggle('gridsnap');">Grid snap<span>+</span></a></h4> 
+    <fieldset id="gridsnap">
         <label><span class="lbltxt">Strength</span><input type="range" min="0" max="100" value="100" id="snapStrength-range" oninput="snapStrengthChanged(this)"/><span id="snapStrength">100</span></label>
         <label><span class="lbltxt">Grid Space X</span><input type="range" min="1" max="150" value="23" id="gridSpacingX-range" oninput="gridSpacingXChanged(this)"/><span id="gridSpacingX">23</span></label>
         <label><span class="lbltxt">Grid Space Y</span><input type="range" min="1" max="150" value="53" id="gridSpacingY-range" oninput="gridSpacingYChanged(this)"/><span id="gridSpacingY">53</span></label>
@@ -80,7 +80,8 @@
         <label style="clear:none; margin: 13px 0px 0px 0px"><span class="lbltxt" style="width: 90px">Show Grid</span><input type="checkbox" id="showGrid" oninput="showGridChanged(this)"/></label>
         <!--<label><span class="lbltxt">ResamplePath</span><input type="range" min="0" max="300" step="0.5" value="0" oninput="resamplePathChanged(this)"/><span id="resampleAmt">0</span></label>-->
     </fieldset>
-    <fieldset>
+    <h4><a href="javascript:menuSectionToggle('layout');">Layout<span>+</span></a></h4> 
+    <fieldset id="layout">
         <label><span class="lbltxt">Y offset</span><input type="range" min="-50"  max="800" value="0" id="offsetY-range"  oninput="offsetYChange(this)"/><span id="yoffset">0</span></label>
         <label><span class="lbltxt">X offset</span><input type="range" min="-500" max="800" value="0" id="offsetX-range"  oninput="offsetXChange(this)"/><span id="xoffset">0</span></label>
         <label><span class="lbltxt">X margin</span><input type="range" min="-100" max="900" value="101" id="xMargin-range"  oninput="marginXChange(this)"/><span id="xMargin">101</span></label>
@@ -375,6 +376,14 @@ function toggleAttribution(){
         document.getElementById('attribution').style.display = "block";
         document.getElementById('attContainer').style.display = "block"; 
         attOpen = true; 
+    }
+}
+
+function menuSectionToggle(target){
+    if (document.getElementById(target).style.display == "none"){
+        document.getElementById(target).style.display = "block";
+    } else {
+        document.getElementById(target).style.display = "none";
     }
 }
 
